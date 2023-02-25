@@ -6,11 +6,11 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to the "<%= title %>" project for the Backend course practice with NodeJS and MongoDB!</p>
+    <p>¡Bienvenido al proyecto "<%= title %>" para la práctica del curso Backend con NodeJS y MongoDB!</p>
 
     <h2>Lista de Anuncios</h2>
     <% anuncios.forEach(anuncio => { %>
-      <p>Anuncio de <%= anuncio.nombre %> con precio <%= anuncio.foto %> <%= anuncio.tags %></p>
+      <p>El siguiente anuncio es de <%= anuncio.nombre %> con un precio de <%anuncio.precio%> <%= anuncio.foto %>, perteneciente a las categorías de: <%= anuncio.tags %></p>
     <% }) %>
   </body>
 </html>

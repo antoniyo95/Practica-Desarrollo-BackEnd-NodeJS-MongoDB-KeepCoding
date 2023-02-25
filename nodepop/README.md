@@ -28,3 +28,15 @@ In the console go to MongoDB folder and:
 ```sh
 ./bin/mongod --dbpath ./data
 ```
+
+## API Methods
+
+### GET/apiv1/anuncios
+The route of the first version is only capable of returning a complete list of available ads, acting as a "base backup" or a clean "starting" zone.
+
+Result:
+```sh
+a
+```
+
+### GET/apiv2/anuncios

@@ -21,6 +21,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/**
+ * RUTAS DEL API
+ */
+app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
+app.use('/apiv2/anuncios', require('./routes/apiv2/anuncios'));
+
+/**
+ * RUTAS DEL WEBSITE
+ */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -31,12 +40,35 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+
+  // Se comprueba si el error es un error de validación
+  if (err.array) {
+    const errorInfo = err.errors[0];
+    err.message = `Error en ${errorInfo.location}, parámetro ${errorInfo.param} ${errorInfo.msg}`;
+    err.status = 422;
+  }
+
+  res.status(err.status || 500);
+
+  // Si lo que ha fallado es una petición al API Version 1
+  // Se devuelve el error en formato JSON
+  if (req.originalUrl.startsWith('/apiv1/')) {
+    res.json({error: err.message});
+    return;
+  }
+
+  // Si lo que ha fallado es una petición al API Version 2
+  // Se devuelve el error en formato JSON también
+  if (req.originalUrl.startsWith('/apiv2/')) {
+    res.json({error: err.message});
+    return;
+  }
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
   res.render('error');
 });
 
