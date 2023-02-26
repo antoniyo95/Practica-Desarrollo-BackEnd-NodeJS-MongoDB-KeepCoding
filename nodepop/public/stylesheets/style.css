@@ -1,8 +1,50 @@
+/* Estilos para el cuerpo de la página */
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #191825;
+  font-family: 'Open Sans', sans-serif;
 }
 
-a {
-  color: #00B7FF;
+/* Estilos para los títulos */
+.title {
+  color: #E384FF;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilos para los subtítulos */
+.subtitle {
+  color: #E384FF;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilos para las cajas de los anuncios */
+.box {
+  background-color: #E384FF;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(48,55,66,0.1);
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+}
+
+/* Estilos para las imágenes de los anuncios */
+.image {
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(48,55,66,0.1);
+}
+
+/* Estilos para los precios de los anuncios */
+.subtitle.is-5 {
+  color: #865DFF;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilos para las categorías de los anuncios */
+.content p {
+  color: #000000;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }

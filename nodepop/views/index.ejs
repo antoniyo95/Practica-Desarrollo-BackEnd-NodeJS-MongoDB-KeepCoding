@@ -2,15 +2,35 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>¡Bienvenido al proyecto "<%= title %>" para la práctica del curso Backend con NodeJS y MongoDB!</p>
+    <section class="section">
+      <div class="container">
+        <h1 class="title"><%= title %></h1>
+        <p class="subtitle">¡Bienvenido al proyecto "<%= title %>" para la práctica del curso Backend con NodeJS y MongoDB realizada por Antonio Luis Martínez Perales!</p>
 
-    <h2>Lista de Anuncios</h2>
-    <% anuncios.forEach(anuncio => { %>
-      <p>El siguiente anuncio es de <%= anuncio.nombre %> con un precio de <%anuncio.precio%> <%= anuncio.foto %>, perteneciente a las categorías de: <%= anuncio.tags %></p>
-    <% }) %>
+        <h2 class="title is-2">Lista de Anuncios</h2>
+        <% anuncios.forEach(anuncio => { %>
+          <div class="box">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img src="<%= anuncio.foto %>" alt="<%= anuncio.nombre %>">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <h3 class="title is-3"><%= anuncio.nombre %></h3>
+                  <p class="subtitle is-5">Precio: <%= anuncio.precio %>€</p>
+                  <p>Categorías: <%= anuncio.tags %> </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        <% }) %>
+      </div>
+    </section>
   </body>
 </html>
