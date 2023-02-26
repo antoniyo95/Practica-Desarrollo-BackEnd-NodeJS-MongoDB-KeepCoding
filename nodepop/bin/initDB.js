@@ -22,8 +22,11 @@ async function initAnuncios() {
 
     // Se crean anuncios iniciales
     const inserted = await Anuncio.insertMany([
-        {nombre: 'Audi A4', venta: false, precio: '17000', foto: 'Audi.jpg', tags: ['motor', 'lifestyle']},
-        {nombre: 'Iphone 13', venta: true, precio: '1200', foto: 'Iphone.jpg', tags: ['mobile', 'lifestyle']}
-    ]);
+        {nombre: 'Audi A4', venta: false, precio: 17100, foto: '/images/Audi.jpg', tags: ['motor', 'lifestyle']},
+        {nombre: 'Iphone 13', venta: true, precio: 1230, foto: '/images/Iphone.jpg', tags: ['mobile', 'lifestyle']},
+        {nombre: 'PC Sobremesa', venta: true, precio: 780, foto: '/images/PC.jpg', tags: ['work', 'lifestyle']},
+        {nombre: 'Taladro', venta: false, precio: 78, foto: '/images/Taladro.jpg', tags: ['work']}
+]);
+
     console.log(`Creados ${inserted.length} anuncios.`);
 }

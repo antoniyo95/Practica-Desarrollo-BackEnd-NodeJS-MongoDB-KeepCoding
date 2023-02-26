@@ -1,6 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const Anuncio = require('../../models/Anuncio');
+const path = require('path');
+
+// GET /apiv2/anuncios/fotos/:nombreArchivo
+// Devuelve una imagen
+router.get('/fotos/:nombreArchivo', async (req, res, next) => {
+    try {
+      const nombreArchivo = req.params.nombreArchivo;
+      const rutaImagen = path.join(__dirname, '../../public/images', nombreArchivo);
+      res.sendFile(rutaImagen);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 // GET /apiv2/anuncios
 // Devuelve una lista de anuncios
@@ -8,8 +21,10 @@ router.get('/', async (req, res, next) => {
     try {
     
     // Filtros
-    const filterByName = req.query.nombre;
+    const filterByName = new RegExp('^' +
+    req.query.nombre, "i");
     const filterBySell = req.query.venta;
+    const filterByPrice = req.query.precio;
     
     // Paginación
     const skip = req.query.skip;
@@ -21,24 +36,52 @@ router.get('/', async (req, res, next) => {
     // Selección de campos
     const fields = req.query.fields;
     
-    const filtro = {};
+const filtro = {};
 
-    if (filterByName) {
-        filtro.nombre = filterByName
+if (req.query.nombre) {
+    filtro.nombre = filterByName
+}
+
+if (req.query.venta !== undefined) {
+    filtro.venta = filterBySell;
+}
+
+
+// Filtro de precio por rango de precio especificado
+if (req.query.precioMin || req.query.precioMax) {
+    filtro.precio = {};
+    if (req.query.precioMin) {
+      filtro.precio.$gte = req.query.precioMin;
     }
-
-    if (filterBySell) {
-        filtro.venta = filterBySell
+    if (req.query.precioMax) {
+      filtro.precio.$lte = req.query.precioMax;
     }
-    
-    const anuncios = await Anuncio.lista(filtro, skip, limit, sort, fields);
+  }
 
-    res.json({results: anuncios});
+const anuncios = await Anuncio.lista(filtro, skip, limit, sort, fields);
+
+res.json({results: anuncios});
+
 
     } catch (error) {
     next(error);
     }
 });
+
+// GET /apiv2/anuncios/tags
+// Devuelve una lista de los tags disponibles en los anuncios
+router.get('/tags', async (req, res, next) => {
+    try {
+
+        const tags = await Anuncio.distinct('tags').exec();
+
+        res.json({ results: tags });
+        
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 // GET /apiv2/anuncios/(tags)
 // Devuelve un anuncio o anuncios buscando por tags
@@ -55,6 +98,8 @@ router.get('/:tags', async (req, res, next) => {
       next(error);
     }
 } );
+
+
 
 // PUT /apiv2/anuncios/:(id)    (body)
 // Actualiza un anuncio

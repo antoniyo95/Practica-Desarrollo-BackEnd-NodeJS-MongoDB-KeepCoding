@@ -30,9 +30,15 @@ body {
 
 /* Estilos para las imágenes de los anuncios */
 .image {
-  border-radius: 0.25rem;
+  border-radius: 25%; /* para que la imagen sea un círculo */
   box-shadow: 0 0.125rem 0.25rem rgba(48,55,66,0.1);
 }
+
+.image img {
+  border-radius: 25%; /* para que la imagen sea un círculo */
+}
+
+
 
 /* Estilos para los precios de los anuncios */
 .subtitle.is-5 {
